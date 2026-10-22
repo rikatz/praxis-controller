@@ -1,0 +1,18 @@
+listeners:
+    - name: web
+      address: 0.0.0.0:80
+      filter_chains:
+        - route-web
+filter_chains:
+    - name: route-web
+      filters:
+        - filter: router
+          multi_level_subdomain_matching: true
+          routes:
+            - path_prefix: /
+              cluster: service-80-tcp-abc
+        - filter: load_balancer
+          clusters:
+            - name: service-80-tcp-abc
+              endpoints:
+                - 10.0.0.1:8080

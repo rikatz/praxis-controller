@@ -1,0 +1,10 @@
+listeners:
+    - name: web
+      address: 0.0.0.0:80
+      filter_chains:
+        - route-web
+filter_chains:
+    - name: route-web
+      filters:
+        - filter: static_response
+          status: 404
